@@ -6,4 +6,4 @@ protoc --go-grpc_out=chat chat.proto
 
 
 protoc --go_out=chat --go_opt=paths=source_relative --go-grpc_opt=paths=source_relative --go-grpc_out=chat chat.proto
-
+GO111MODULE=on go get golang.org/x/tools/gopls@latest

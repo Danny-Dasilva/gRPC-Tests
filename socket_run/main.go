@@ -1,10 +1,10 @@
 package main
 
 import (
-    "fmt"
-    "net/http"
+	"fmt"
+	"net/http"
 
-    "github.com/Danny-Dasilva/gRPC-Tests/socket_run/socket"
+	websocket "github.com/Danny-Dasilva/gRPC-Tests/socket_run/socket"
 )
 
 func serveWs(pool *websocket.Pool, w http.ResponseWriter, r *http.Request) {
