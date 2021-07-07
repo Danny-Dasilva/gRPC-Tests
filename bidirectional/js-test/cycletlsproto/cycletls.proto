@@ -16,14 +16,10 @@ service CycleStream {
   rpc Stream(stream cycleTLSRequest) returns (stream Response) {}
 }
 
-// Points are represented as latitude-longitude pairs in the E7 representation
-// (degrees multiplied by 10**7 and rounded to the nearest integer).
-// Latitudes should be in the range +/- 90 degrees and longitude should be in
-// the range +/- 180 degrees (inclusive).
 message Options {
   string URL = 1;
   string Method = 2;
-  string Headers = 3;
+  repeated Pair Headers = 3;
   string Body = 4;
   string Ja3 = 5;
   string UserAgent = 6;
@@ -31,6 +27,10 @@ message Options {
   string Cookies = 8;
 }
 
+message Pair {
+   string key = 1;
+   string value = 2;
+}
 message cycleTLSRequest {
   string RequestID = 1;
   Options Options = 2;

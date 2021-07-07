@@ -16,7 +16,7 @@ import (
 
 
 
-	pb "github.com/Danny-Dasilva/gRPC-Tests/bidirectional/js-test/routeguide"
+	pb "github.com/Danny-Dasilva/gRPC-Tests/bidirectional/js-test/cycletlsproto"
 )
 
 var (
@@ -31,14 +31,13 @@ type routeGuideServer struct {
 	pb.UnimplementedCycleStreamServer
 
 	mu         sync.Mutex // protects routeNotes
-	routeNotes map[string][]*pb.RouteNote
 }
 
 
 
 // RouteChat receives a stream of message/location pairs, and responds with a stream of all
 // previous messages at each of those locations.
-func (s *routeGuideServer) RouteChat(stream pb.RouteGuide_RouteChatServer) error {
+func (s *routeGuideServer) RouteChat(stream pb.CycleStream_StreamServer) error {
 	for {
 		in, err := stream.Recv()
 		if err == io.EOF {
@@ -72,7 +71,7 @@ func (s *routeGuideServer) RouteChat(stream pb.RouteGuide_RouteChatServer) error
 }
 
 func newServer() *routeGuideServer {
-	s := &routeGuideServer{routeNotes: make(map[string][]*pb.RouteNote)}
+	s := &routeGuideServer{}
 	return s
 }
 
@@ -97,7 +96,7 @@ func main() {
 		opts = []grpc.ServerOption{grpc.Creds(creds)}
 	}
 	grpcServer := grpc.NewServer(opts...)
-	pb.RegisterRouteGuideServer(grpcServer, newServer())
+	pb.RegisterCycleStreamServer(grpcServer, newServer())
 	grpcServer.Serve(lis)
 }
 
