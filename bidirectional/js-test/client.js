@@ -1,4 +1,4 @@
-var PROTO_PATH = __dirname + '/protos/route_guide.proto';
+var PROTO_PATH = __dirname + '/routeguide/route_guide.proto';
 
 var async = require('async');
 
@@ -14,13 +14,8 @@ var packageDefinition = protoLoader.loadSync(
      oneofs: true
     });
 var routeguide = grpc.loadPackageDefinition(packageDefinition).routeguide;
-var client = new routeguide.RouteGuide('localhost:50051',
+var client = new routeguide.RouteGuide('localhost:10000',
                                        grpc.credentials.createInsecure());
-
-var COORD_FACTOR = 1e7;
-
-
-
 
 /**
  * Run the routeChat demo. Send some chat messages, and print any chat messages
@@ -78,10 +73,7 @@ function main() {
     runRouteChat
   ]);
 }
-
 if (require.main === module) {
   main();
 }
-
-
 exports.runRouteChat = runRouteChat;
