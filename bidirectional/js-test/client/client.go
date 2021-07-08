@@ -44,9 +44,9 @@ var (
 
 // runRouteChat receives a sequence of route notes, while sending notes for various locations.
 func runCycleTLS(client pb.CycleStreamClient) {
-	notes := []*pb.cycleTLSRequest{
-		{RequestID: "1", Message: &pb.Options{URL: "1", Method: "2", Headers: "3", Body: "4", Ja3: "5", UserAgent: "6", Proxy: "7", Cookies: "8"}},
-		{RequestID: "2", Message: &pb.Options{URL: "11", Method: "22", Headers: "33", Body: "44", Ja3: "55", UserAgent: "66", Proxy: "77", Cookies: "88"}}
+	notes := []*pb.CycleTLSRequest{
+		{RequestID: "1", Options: &pb.Options{URL: "1", Method: "2", Headers: "3", Body: "4", Ja3: "5", UserAgent: "6", Proxy: "7", Cookies: "8"}},
+		{RequestID: "2", Options: &pb.Options{URL: "11", Method: "22", Headers: "33", Body: "44", Ja3: "55", UserAgent: "66", Proxy: "77", Cookies: "88"}},
 	}
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
@@ -66,7 +66,7 @@ func runCycleTLS(client pb.CycleStreamClient) {
 			if err != nil {
 				log.Fatalf("Failed to receive a note : %v", err)
 			}
-			log.Printf("Got message %s at point(%d, %d)", in.Message, in.Location.Latitude, in.Location.Longitude)
+			log.Printf("Got message %s at point(%d, %s)", in.RequestID, in.Status, in.Body)
 		}
 	}()
 	for _, note := range notes {

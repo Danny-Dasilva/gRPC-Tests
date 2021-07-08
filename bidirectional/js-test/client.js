@@ -1,4 +1,4 @@
-var PROTO_PATH = __dirname + '/routeguide/route_guide.proto';
+var PROTO_PATH = __dirname + '/cycletlsproto/cycletls.proto';
 
 var async = require('async');
 
@@ -13,8 +13,8 @@ var packageDefinition = protoLoader.loadSync(
      defaults: true,
      oneofs: true
     });
-var routeguide = grpc.loadPackageDefinition(packageDefinition).routeguide;
-var client = new routeguide.RouteGuide('localhost:10000',
+var cyclestream = grpc.loadPackageDefinition(packageDefinition).cyclestream;
+var client = new cyclestream.CycleStream('localhost:10000',
                                        grpc.credentials.createInsecure());
 
 /**
@@ -22,46 +22,18 @@ var client = new routeguide.RouteGuide('localhost:10000',
  * that are sent from the server.
  * @param {function} callback Called when the demo is complete
  */
-function runRouteChat(callback) {
-  var call = client.routeChat();
+function runCycleTLS(callback) {
+  var call = client.Stream();
   call.on('data', function(note) {
-    console.log('Got message "' + note.message + '" at ' +
-        note.location.latitude + ', ' + note.location.longitude);
+    console.log('Got message "' + note.RequestID + '" at ' +
+        note.Status + ', ' + note.Body);
   });
-
   call.on('end', callback);
 
-  var notes = [{
-    location: {
-      latitude: 0,
-      longitude: 0
-    },
-    message: 'First message'
-  }, {
-    location: {
-      latitude: 0,
-      longitude: 1
-    },
-    message: 'Second message'
-  }, {
-    location: {
-      latitude: 1,
-      longitude: 0
-    },
-    message: 'Third message'
-  }, {
-    location: {
-      latitude: 0,
-      longitude: 0
-    },
-    message: 'Fourth message'
-  }];
-  for (var i = 0; i < notes.length; i++) {
-    var note = notes[i];
-    console.log('Sending message "' + note.message + '" at ' +
-        note.location.latitude + ', ' + note.location.longitude);
-    call.write(note);
-  }
+  var note = {RequestID: "2", Options: {URL: "11", Method: "22", Headers: "33", Body: "44", Ja3: "55", UserAgent: "66", Proxy: "77", Cookies: "88"}}
+
+  call.write(note);
+
   call.end();
 }
 
@@ -70,10 +42,10 @@ function runRouteChat(callback) {
  */
 function main() {
   async.series([
-    runRouteChat
+    runCycleTLS
   ]);
 }
 if (require.main === module) {
   main();
 }
-exports.runRouteChat = runRouteChat;
+exports.runCycleTLS = runCycleTLS;
