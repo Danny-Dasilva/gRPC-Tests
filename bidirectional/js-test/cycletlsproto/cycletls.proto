@@ -17,20 +17,17 @@ service CycleStream {
 }
 
 
-message Options {
-  string URL = 1;
-  string Method = 2;
-  string Headers = 3;
-  string Body = 4;
-  string Ja3 = 5;
-  string UserAgent = 6;
-  string Proxy = 7;
-  string Cookies = 8;
-}
 
 message cycleTLSRequest {
   string RequestID = 1;
-  Options Options = 2;
+  string URL = 2;
+  string Method = 3;
+  string Headers = 4;
+  string Body = 5;
+  string Ja3 = 6;
+  string UserAgent = 7;
+  string Proxy = 8;
+  string Cookies = 9;
 
 }
 
