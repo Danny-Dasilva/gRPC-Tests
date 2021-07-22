@@ -1,17 +1,17 @@
 import * as grpc from '@grpc/grpc-js';
-import { CycleStream, ICycleStream } from './proto/example_grpc_pb';
-import { ClientMessage, ServerMessage } from './proto/example_pb';
+import { CycleStream, ICycleStream } from './proto/cycletls_grpc_pb';
+import { CycleTLSRequest, Response } from './proto/cycletls_pb';
 
 const host = '0.0.0.0:9090';
 
 const exampleServer: ICycleStream = {
   
-  bidirectionalStreamingCall(
+  Stream(
     call: grpc.ServerDuplexStream<cycleTLSRequest, Response>
   ) {
     call.on('data', (cycleTLSRequest: cycleTLSRequest) => {
       console.log(
-        `(server) Got client message: ${cycleTLSRequest.getClientMessage()}`
+        `(server) Got client message: ${cycleTLSRequest.getCycleTLSRequest()}`
       );
     });
 

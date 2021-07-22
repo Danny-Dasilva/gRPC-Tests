@@ -13,12 +13,12 @@ service CycleStream {
   //
   // Accepts a stream of RouteNotes sent while a route is being traversed,
   // while receiving other RouteNotes (e.g. from other users).
-  rpc Stream(stream cycleTLSRequest) returns (stream Response) {}
+  rpc Stream(stream CycleTLSRequest) returns (stream Response) {}
 }
 
 
 
-message cycleTLSRequest {
+message CycleTLSRequest {
   string RequestID = 1;
   string URL = 2;
   string Method = 3;
