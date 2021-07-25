@@ -15,8 +15,8 @@
         "lint:eslint": "eslint . --ext .js,.ts",
         "lint:fix": "npm run lint:fix:prettier && npm run lint:eslint -- --fix",
         "lint:fix:prettier": "prettier --write '**/*.{ts,tsx,js,json,svg,md,yml}'",
-        "start:server": "node server",
-        "start:client": "node client"
+        "start:server": "node cserver",
+        "start:client": "node cclient --bidi-streaming"
     },
     "keywords": [],
     "author": "",

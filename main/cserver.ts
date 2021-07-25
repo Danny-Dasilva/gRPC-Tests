@@ -1,29 +1,29 @@
 import * as grpc from '@grpc/grpc-js';
-import { CycleStream, ICycleStream } from './proto/cycletls_grpc_pb';
+import { CycleStreamService, ICycleStreamServer } from './proto/cycletls_grpc_pb';
 import { CycleTLSRequest, Response } from './proto/cycletls_pb';
 
-const host = '0.0.0.0:9090';
+const host = '0.0.0.0:10000';
 
-const exampleServer: ICycleStream = {
+const exampleServer: ICycleStreamServer = {
   
-  Stream(
-    call: grpc.ServerDuplexStream<cycleTLSRequest, Response>
+  stream(
+    call: grpc.ServerDuplexStream<CycleTLSRequest, Response>
   ) {
-    call.on('data', (cycleTLSRequest: cycleTLSRequest) => {
+    call.on('data', (cycleTLSRequest: CycleTLSRequest) => {
       console.log(
-        `(server) Got client message: ${cycleTLSRequest.getCycleTLSRequest()}`
+        `(server) Got client message: ${cycleTLSRequest.getRequestid()}`
       );
     });
 
     const response = new Response();
-    response.setResponse('Message from server');
+    response.setRequestid('Message from server');
     call.write(response);
   },
 };
 
 function getServer(): grpc.Server {
   const server = new grpc.Server();
-  server.addService(CycleStream, exampleServer);
+  server.addService(CycleStreamService, exampleServer);
   return server;
 }
 

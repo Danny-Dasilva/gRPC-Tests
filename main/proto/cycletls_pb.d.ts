@@ -1,4 +1,4 @@
-// package: cyclestream
+// package: cycletls
 // file: proto/cycletls.proto
 
 /* tslint:disable */

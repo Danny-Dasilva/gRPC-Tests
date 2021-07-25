@@ -5,7 +5,7 @@ option java_package = "io.grpc.examples.routeguide";
 option java_outer_classname = "RouteGuideProto";
 option objc_class_prefix = "RTG";
 
-package cyclestream;
+package cycletls;
 
 // Interface exported by the server.
 service CycleStream {

@@ -45,8 +45,8 @@ var (
 // runRouteChat receives a sequence of route notes, while sending notes for various locations.
 func runCycleTLS(client pb.CycleStreamClient) {
 	notes := []*pb.CycleTLSRequest{
-		{RequestID: "1", Options: &pb.Options{URL: "1", Method: "2", Headers: "3", Body: "4", Ja3: "5", UserAgent: "6", Proxy: "7", Cookies: "8"}},
-		{RequestID: "2", Options: &pb.Options{URL: "11", Method: "22", Headers: "33", Body: "44", Ja3: "55", UserAgent: "66", Proxy: "77", Cookies: "88"}},
+		{RequestID: "1", URL: "1", Method: "2", Headers: "3", Body: "4", Ja3: "5", UserAgent: "6", Proxy: "7", Cookies: "8"},
+		{RequestID: "2", URL: "11", Method: "22", Headers: "33", Body: "44", Ja3: "55", UserAgent: "66", Proxy: "77", Cookies: "88"},
 	}
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()

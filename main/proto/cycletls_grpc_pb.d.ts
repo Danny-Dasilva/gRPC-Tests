@@ -1,4 +1,4 @@
-// package: cyclestream
+// package: cycletls
 // file: proto/cycletls.proto
 
 /* tslint:disable */
@@ -12,7 +12,7 @@ interface ICycleStreamService extends grpc.ServiceDefinition<grpc.UntypedService
 }
 
 interface ICycleStreamService_IStream extends grpc.MethodDefinition<proto_cycletls_pb.CycleTLSRequest, proto_cycletls_pb.Response> {
-    path: "/cyclestream.CycleStream/Stream";
+    path: "/cycletls.CycleStream/Stream";
     requestStream: true;
     responseStream: true;
     requestSerialize: grpc.serialize<proto_cycletls_pb.CycleTLSRequest>;
